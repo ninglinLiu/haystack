@@ -139,7 +139,21 @@ class TestFileTypeRouter:
                 assert isinstance(el, ByteStream)
                 assert el.meta["meta_field"] == "meta_value"
 
+    def test_run_with_meta_preserves_detected_mime_type(self, tmp_path):
+        """Path sources converted for metadata keep the MIME type the router already detected (#13417)."""
+        path = tmp_path / "hello.txt"
+        path.write_text("Hello Haystack!", encoding="utf-8")
+
+        router = FileTypeRouter(mime_types=["text/plain"])
+        output = router.run(sources=[path], meta={"source_id": "123"})
+
+        routed = output["text/plain"][0]
+        assert isinstance(routed, ByteStream)
+        assert routed.mime_type == "text/plain"
+        assert routed.meta["source_id"] == "123"
+
     def test_run_with_meta_list(self, test_files_path):
+
         """
         Test if the component runs correctly when a list of metadata dictionaries is provided.
         """

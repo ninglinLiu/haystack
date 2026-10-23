@@ -203,7 +203,14 @@ class FileTypeRouter:
 
                 # `get_bytestream_from_source` hands back a ByteStream source unchanged, so writing the
                 # metadata onto it would modify the object the caller still holds. Build a copy instead.
-                source = replace(source, meta={**source.meta, **meta_dict})
+                # Also keep the MIME type already detected for Path/str sources — get_bytestream_from_source
+                # defaults to guess_mime_type=False, which would otherwise leave mime_type=None and drop
+                # information the router already has (see #13417).
+                source = replace(
+                    source,
+                    meta={**source.meta, **meta_dict},
+                    mime_type=mime_type if mime_type is not None else source.mime_type,
+                )
 
             matched = False
             if mime_type:

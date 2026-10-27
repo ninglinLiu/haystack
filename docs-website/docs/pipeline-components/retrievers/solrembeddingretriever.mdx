@@ -46,6 +46,12 @@ To start using Solr with Haystack, install the package with:
 pip install solr-haystack
 ```
 
+The pipeline examples on this page use Sentence Transformers embedders that have moved to the `sentence-transformers-haystack` package. Install it to run them:
+
+```shell
+pip install sentence-transformers-haystack
+```
+
 ### On its own
 
 This Retriever needs an instance of `SolrDocumentStore` and indexed Documents to run.
@@ -70,7 +76,7 @@ This example indexes documents with their embeddings and then embeds the query b
 
 ```python
 from haystack import Document, Pipeline
-from haystack.components.embedders import (
+from haystack_integrations.components.embedders.sentence_transformers import (
     SentenceTransformersDocumentEmbedder,
     SentenceTransformersTextEmbedder,
 )

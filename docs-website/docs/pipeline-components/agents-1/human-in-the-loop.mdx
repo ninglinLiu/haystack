@@ -205,10 +205,8 @@ Policies control *when* the human is asked.
 You can implement your own policy by subclassing `ConfirmationPolicy` from `haystack.hooks.human_in_the_loop.types`:
 
 ```python
-from haystack.hooks.human_in_the_loop.types import (
-    ConfirmationPolicy,
-    ConfirmationUIResult,
-)
+from haystack.hooks.human_in_the_loop import ConfirmationUIResult
+from haystack.hooks.human_in_the_loop.types import ConfirmationPolicy
 from typing import Any
 
 

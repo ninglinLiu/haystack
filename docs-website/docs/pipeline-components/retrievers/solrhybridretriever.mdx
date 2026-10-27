@@ -45,6 +45,12 @@ The component automatically handles:
 pip install solr-haystack
 ```
 
+The pipeline examples on this page use Sentence Transformers embedders that have moved to the `sentence-transformers-haystack` package. Install it to run them:
+
+```shell
+pip install sentence-transformers-haystack
+```
+
 ### Optional Parameters
 
 This Retriever accepts various optional parameters. You can verify the most up-to-date list of parameters in our [API Reference](/reference/integrations-solr).
@@ -68,7 +74,7 @@ This example indexes documents with their embeddings and then runs hybrid retrie
 
 ```python
 from haystack import Document, Pipeline
-from haystack.components.embedders import (
+from haystack_integrations.components.embedders.sentence_transformers import (
     SentenceTransformersDocumentEmbedder,
     SentenceTransformersTextEmbedder,
 )
